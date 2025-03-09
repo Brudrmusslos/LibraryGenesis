@@ -1,17 +1,19 @@
-FROM python:3
+FROM python:3.9-slim
 
-WORKDIR /usr/src/librarygenesis
+WORKDIR /app
 
-# download LG repo
-RUN wget -O librarygenesis.zip "https://github.com/hype-armor/LibraryGenesis/archive/refs/heads/main.zip";
-COPY librarygenesis.zip /usr/src/librarygenesis/librarygenesis.zip
-RUN unzip librarygenesis.zip;
-RUN rm librarygenesis.zip;
-RUN cd LibraryGenesis-main;
-WORKDIR /usr/src/librarygenesis/LibraryGenesis-main
-RUN pip install --no-cache-dir -r requirements.txt
-RUN mkdir -p /downloads
+# Install git to clone the repository
+RUN apt-get update && apt-get install -y git && apt-get clean
 
+# Clone the repository directly from GitHub
+RUN git clone https://github.com/Brudrmusslos/LibraryGenesis.git /app
+
+# Install dependencies
+RUN pip install --upgrade pip && \
+    pip install -r /app/requirements.txt
+
+# Expose the application's port (if needed)
 EXPOSE 8003
 
-CMD [ "python", "./server.py" ]
+# Run the application
+CMD ["python", "/app/server.py"]
