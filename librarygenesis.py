@@ -178,6 +178,9 @@ class result:
 
     def download(self):
         print("Downloading....")
+        file_path = self.file_path
+        DestDir = self.item.DestDir
+        FinalDir = self.item.FinalDir
         
         # keep *nix pathing.
         if os.name == 'nt':
