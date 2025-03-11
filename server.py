@@ -184,6 +184,9 @@ class MyServer(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     webServer = HTTPServer((HOSTNAME, SERVERPORT), MyServer)
     print(f"Server started http://{HOSTNAME}:{SERVERPORT}")
+    print(f"Download directory: {DOWNLOAD_DIR}")
+    print(f"Incomplete directory: {INCOMPLETE_DIR}")
+    print(f"Completed directory: {COMPLETED_DIR}")
 
     try:
         webServer.serve_forever()
